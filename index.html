@@ -35,7 +35,7 @@
             <h1 class="text-4xl font-extrabold text-red-600 dark:text-red-500 tracking-wide">द्र न्यूज</h1>
             
             <div class="relative w-full md:w-96">
-                <input type="text" id="search-input" onkeyup="searchNews()" placeholder="समाचार खोज्नुहोस्..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                <input type="text" id="search-input" onkeyup="searchNews()" placeholder="समाचार खोजनुहोस्..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
             </div>
         </div>
@@ -52,15 +52,16 @@
 
     <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 overflow-x-auto shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-start md:justify-center p-2 whitespace-nowrap gap-1">
-            <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-red-600 bg-red-50 dark:bg-gray-700 dark:text-white">गृहपृष्ठ</button>
-            <button onclick="filterCategory('नेपाल')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🇳🇵 नेपाल</button>
-            <button onclick="filterCategory('विश्व')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌍 विश्व</button>
-            <button onclick="filterCategory('राजनीति')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💼 राजनीति</button>
-            <button onclick="filterCategory('अर्थतन्त्र')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💹 अर्थतन्त्र</button>
-            <button onclick="filterCategory('खेलकुद')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">⚽ खेलकुद</button>
-            <button onclick="filterCategory('मनोरञ्जन')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🎬 मनोरञ्जन</button>
-            <button onclick="filterCategory('प्रविधि')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">📱 प्रविधि</button>
-            <button onclick="filterCategory('मौसम')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌦 मौसम</button>
+            <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-red-600 bg-red-50 dark:bg-gray-700 dark:text-white">गृहपृष्ठ</button>
+            <button onclick="filterCategory('नेपाल', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🇳🇵 नेपाल</button>
+            <button onclick="filterCategory('विश्व', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌍 विश्व</button>
+            <button onclick="filterCategory('राजनीति', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💼 राजनीति</button>
+            <button onclick="filterCategory('अर्थतन्त्र', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💹 अर्थतन्त्र</button>
+            <button onclick="filterCategory('खेलकुद', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">⚽ खेलकुद</button>
+            <button onclick="filterCategory('मनोरञ्जन', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🎬 मनोरञ्जन</button>
+            <button onclick="filterCategory('प्रविधि', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">📱 प्रविधि</button>
+            <button onclick="filterCategory('मौसम', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌦 मौसम</button>
+            <button onclick="filterCategory('इसाई समाचार', this)" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">✝️ इसाई समाचार</button>
         </div>
     </nav>
 
@@ -95,20 +96,59 @@
         </div>
     </div>
 
+    <div id="news-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden justify-center items-center z-50 p-4">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl max-w-2xl w-full shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-start border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
+                <div>
+                    <span id="modal-source" class="text-xs font-semibold text-red-500 block mb-1"></span>
+                    <h3 id="modal-title" class="text-xl font-bold leading-snug text-gray-900 dark:text-white"></h3>
+                </div>
+                <button onclick="closeNewsModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl ml-2 cursor-pointer p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-y-auto flex-1 pr-1 text-sm text-gray-700 dark:text-gray-300 space-y-4 mb-4">
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-1"><i class="fa-solid fa-file-lines mr-1 text-red-500"></i> पूरा विवरण:</h4>
+                    <p id="modal-desc" class="leading-relaxed"></p>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl border border-gray-200 dark:border-gray-600 relative">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 flex justify-between items-center">
+                        <span><i class="fa-solid fa-share-nodes mr-1 text-blue-500"></i> सोशल मिडिया पोस्ट (तयार सारांश)</span>
+                        <button onclick="copyToClipboard()" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1 cursor-pointer">
+                            <i id="copy-icon" class="fa-regular fa-copy"></i> <span id="copy-text">कपी गर्नुहोस्</span>
+                        </button>
+                    </h4>
+                    <textarea id="modal-summary" readonly class="w-full bg-transparent border-0 text-sm font-medium focus:ring-0 resize-none h-28 text-gray-800 dark:text-gray-200 focus:outline-none"></textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center border-t border-gray-100 dark:border-gray-700 pt-3">
+                <a id="modal-link" href="#" target="_blank" class="text-sm font-bold text-blue-600 hover:underline flex items-center gap-1">सम्बन्धित साइटमा जानुहोस् <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                <span class="text-xs text-gray-400">द्र न्यूज सोशल सेयरिङ</span>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Sample News Data with Corrected Brand Name
+        // समाचार डेटाबेस (राष्ट्रिय, अन्तर्राष्ट्रिय, इसाई खेलकुद, इसाई मनोरञ्जन र समाचारहरू सहित)
         const newsFeeds = [
-            { source: "Online Khabar", category: "नेपाल", title: "देशभर मनसुन सक्रिय, चार प्रदेशमा भारी वर्षाको सम्भावना", link: "#", desc: "जल तथा मौसम विज्ञान विभागका अनुसार आज देशभर आंशिकदेखि सामान्य बदली रहनेछ..." },
-            { source: "Ekantipur", category: "राजनीति", title: "संसदको हिउँदे अधिवेशन बोलाउने तयारी तीव्र, दलहरूबीच छलफल", link: "#", desc: "राजनीतिक दलहरू आगामी रणनीति मिलाउन आन्तरिक गृहकार्य र बैठकहरूमा व्यस्त..." },
-            { source: "Ratopati", category: "अर्थतन्त्र", title: "सेयर बजारमा उत्साह: नेप्से परिसूचकमा दोहोरो अङ्कको वृद्धि", link: "#", desc: "नेपाल स्टक एक्सचेन्जमा आज कारोबार सुरु भएदेखि नै राम्रो सुधार देखिएको छ..." },
-            { source: "Setopati", category: "खेलकुद", title: "नेपाली राष्ट्रिय क्रिकेट टोलीको अन्तराष्ट्रिय खेल तालिका सार्वजनिक", link: "#", desc: "क्यानले आगामी महिना आयोजना हुने त्रिकोणात्मक सिरिजको तालिका घोषणा गरेको छ..." },
-            { source: "Nagarik News", category: "विश्व", title: "अन्तर्राष्ट्रिय बजारमा इन्धनको मूल्यमा गिरावट", link: "#", desc: "विश्व बजारमा माग घटेसँगै कच्चा तेलको मूल्यमा मन्दी आएको अन्तर्राष्ट्रिय सञ्चारमाध्यमले जनाएका छन्..." },
-            { source: "TechPana", category: "प्रविधि", title: "नेपालमै पहिलो पटक आर्टिफिसियल इन्टेलिजेन्स कन्फरेन्स सम्पन्न", link: "#", desc: "प्रविधि क्षेत्रका विज्ञहरू सम्मिलित राष्ट्रिय सम्मेलनले नयाँ एआई नीति ल्याउन सुझाव दिएको छ..." }
+            { id: 1, source: "Online Khabar", category: "नेपाल", title: "देशभर मनसुन सक्रिय, चार प्रदेशमा भारी वर्षाको सम्भावना", link: "#", desc: "जल तथा मौसम विज्ञान विभागका अनुसार आज देशभर आंशिकदेखि सामान्य बदली रहनेछ। मनसुनी वायुको प्रभावका कारण गण्डकी, लुम्बिनी, कर्णाली र सुदूरपश्चिम प्रदेशका केही स्थानहरूमा मेघगर्जन र चट्याङसहित भारी वर्षाको सम्भावना रहेको छ। नदी तटीय क्षेत्र र पहिरो जोखिम भएका स्थानहरूमा सतर्कता अपनाउन प्रशासनले आग्रह गरेको छ।" },
+            { id: 2, source: "Ekantipur", category: "राजनीति", title: "संसदको हिउँदे अधिवेशन बोलाउने तयारी तीव्र, दलहरूबीच छलफल", link: "#", desc: "राजनीतिक दलहरू आगामी हिउँदे अधिवेशनलाई प्रभावकारी बनाउन आन्तरिक गृहकार्य र बैठकहरूमा व्यस्त छन्। मुख्य विधेयकहरू पारित गर्ने र समसामयिक राजनीतिक मुद्दाहरूमा साझा सहमति खोज्ने प्रयास भइरहेको छ। सत्तापक्ष र प्रतिपक्षबीच संसद् सञ्चालनका एजेन्डाहरू तय गर्न आज विशेष बैठक बस्ने कार्यक्रम छ।" },
+            { id: 3, source: "Ratopati", category: "अर्थतन्त्र", title: "सेयर बजारमा उत्साह: नेप्से परिसूचकमा दोहोरो अङ्कको वृद्धि", link: "#", desc: "नेपाल स्टक एक्सचेन्ज (नेप्से) मा आज कारोबार सुरु भएदेखि नै राम्रो सुधार देखिएको छ। उत्पादनमूलक र जलविद्युत उपसमूहको सेयरमा लगानीकर्ताको आकर्षण बढ्दा समग्र बजार परिसूचकमा सकारात्मक प्रभाव परेको हो। आजको कुल कारोबार रकम पनि अघिल्लो हप्ताको तुलनामा निकै उत्साहजनक रहेको छ।" },
+            { id: 4, source: "Setopati", category: "खेलकुद", title: "नेपाली राष्ट्रिय क्रिकेट टोलीको अन्तराष्ट्रिय खेल तालिका सार्वजनिक", link: "#", desc: "नेपाल क्रिकेट संघ (क्यान) ले आगामी महिना आयोजना हुने त्रिकोणात्मक अन्तराष्ट्रिय सिरिजको आधिकारिक तालिका घोषणा गरेको छ। नेपाली टोलीले घरेलु मैदानमै मलेसिया र युएईसँग प्रतिस्पर्धा गर्नेछ। मुख्य प्रशिक्षकका अनुसार टिमको तयारी उच्च स्तरमा भइरहेको छ र खेलाडीहरू जितका लागि निकै उत्साहित छन्।" },
+            { id: 5, source: "Nagarik News", category: "विश्व", title: "अन्तर्राष्ट्रिय बजारमा इन्धनको मूल्यमा गिरावट", link: "#", desc: "विश्व बजारमा माग घटेसँगै कच्चा तेलको मूल्यमा मन्दी आएको अन्तर्राष्ट्रिय सञ्चारमाध्यमले janaaeka छन्। प्रमुख उत्पादक राष्ट्रहरूले उत्पादन क्षमता समायोजन गरे तापनि युरोपेली र एसियाली मुलुकहरूमा खपत कम भएका कारण मूल्यमा लगातार गिरावट आएको हो। यसले नेपाल जस्ता आयातकर्ता देशलाई केही राहत मिल्न सक्छ।" },
+            { id: 6, source: "TechPana", category: "प्रविधि", title: "नेपालमै पहिलो पटक आर्टिफिसियल इन्टेलिजेन्स कन्फरेन्स सम्पन्न", link: "#", desc: "काठमाडौँमा प्रविधि क्षेत्रका विज्ञहरू सम्मिलित पहिलो राष्ट्रिय एआई सम्मेलन सफलतापूर्वक सम्पन्न भएको छ। सम्मेलनले नेपालमा सुरक्षित एआई प्रयोगका लागि राष्ट्रिय नीति र नियमन प्रणाली ल्याउन सरकारलाई महत्वपूर्ण बुँदाहरू बुझाएको छ। कार्यक्रममा स्वदेशी स्टार्टअपहरूले आफ्ना नयाँ आविष्कारहरू प्रदर्शन गरेका थिए।" },
+            { id: 7, source: "Christian Society", category: "इसाई समाचार", title: "काठमाडौँमा राष्ट्रिय इसाई युवा सम्मेलन सुरु, देशभरका युवाहरूको सहभागिता", link: "#", desc: "राष्ट्रिय इसाई महासंघको आयोजनामा तीन दिने वृहत् युवा सम्मेलन काठमाडौँमा सुरु भएको छ। सम्मेलनमा देशभरका विभिन्न जिल्लाबाट ५०० भन्दा बढी युवा प्रतिनिधिहरूको उत्साहजनक उपस्थिति रहेको छ। सम्मेलनको मुख्य उद्देश्य समाज सेवा, नेतृत्व विकास, र युवाहरूमा नैतिक मूल्य मान्यताको प्रवर्द्धन गर्नु रहेको आयोजकले जनाएका छन्।" },
+            { id: 8, source: "Global Gospel News", category: "इसाई समाचार", title: "अन्तर्राष्ट्रिय इसाई खेलकुद महोत्सव आगामी महिना सुरु हुँदै, नेपाल पनि सहभागी हुने", link: "#", desc: "दक्षिण कोरियामा आगामी महिना संसारभरका इसाई खेलाडीहरूको सहभागिता रहने अन्तर्राष्ट्रिय खेलकुद महोत्सव आयोजना हुने भएको छ। नेपालबाट पनि विभिन्न खेल विधामा खेलाडीहरू सहभागी गराउने तयारी भइरहेको छ। यस प्रतियोगिताले विश्वभरका इसाई समुदायबीच भ्रातृत्व, खेलकुद विकास र एकताको भावना मजबुत बनाउने विश्वास गरिएको छ।" },
+            { id: 9, source: "Faith & Media", category: "इसाई समाचार", title: "म्युजिक अवार्ड्स: उत्कृष्ट इसाई आधुनिक भजन र मनोरञ्जन विधाको मनोनयन सार्वजनिक", link: "#", desc: "यस वर्षको बहुप्रतीक्षित राष्ट्रिय इसाई म्युजिक तथा सांस्कृतिक अवार्ड्सको मनोनयन सूची सार्वजनिक गरिएको छ। उत्कृष्ट गायक, गायिका र संगीतकार विधामा नयाँ तथा पुराना कलाकारहरूबीच कडा प्रतिस्पर्धा देखिएको छ। आगामी हप्ता एक भव्य सांस्कृतिक मनोरञ्जनात्मक कार्यक्रमका बीच विजेताहरूको घोषणा गरिनेछ।" }
         ];
 
         let loadedNews = [...newsFeeds];
 
-        // Marquee Animation Injected
+        // टिकर एनिमेसन
         const style = document.createElement('style');
         style.innerHTML = `@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`;
         document.head.appendChild(style);
@@ -123,6 +163,7 @@
             requestPushPermission();
         };
 
+        // समाचार कार्डहरू रेन्डर गर्ने फङ्सन
         function renderNews(articles) {
             const container = document.getElementById('news-container');
             if(articles.length === 0) {
@@ -130,17 +171,17 @@
                 return;
             }
             container.innerHTML = articles.map(item => `
-                <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col justify-between p-5 hover:shadow-md transition">
+                <article onclick="openNewsModal(${item.id})" class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col justify-between p-5 hover:shadow-md transition cursor-pointer group">
                     <div>
                         <div class="flex justify-between items-center text-xs font-semibold text-red-500 mb-2">
                             <span><i class="fa-solid fa-newspaper mr-1"></i> ${item.source}</span>
                             <span class="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">${item.category}</span>
                         </div>
-                        <h2 class="text-lg font-bold mb-2 hover:text-red-600 cursor-pointer line-clamp-2">${item.title}</h2>
+                        <h2 class="text-lg font-bold mb-2 group-hover:text-red-600 transition line-clamp-2">${item.title}</h2>
                         <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">${item.desc}</p>
                     </div>
-                    <div class="flex justify-between items-center border-t border-gray-100 dark:border-gray-700 pt-3">
-                        <a href="${item.link}" target="_blank" class="text-xs font-bold text-blue-600 hover:underline">पूरा पढ्नुहोस् &rarr;</a>
+                    <div class="flex justify-between items-center border-t border-gray-100 dark:border-gray-700 pt-3" onclick="event.stopPropagation()">
+                        <button onclick="openNewsModal(${item.id})" class="text-xs font-bold text-red-600 hover:underline flex items-center gap-1 cursor-pointer">विवरण र सारांश कपी &rarr;</button>
                         <div class="flex gap-2 text-gray-400 text-sm">
                             <button onclick="share('fb', '${item.title}')" class="hover:text-blue-600 cursor-pointer"><i class="fa-brands fa-facebook"></i></button>
                             <button onclick="share('tw', '${item.title}')" class="hover:text-sky-400 cursor-pointer"><i class="fa-brands fa-twitter"></i></button>
@@ -155,12 +196,16 @@
             ticker.innerHTML = articles.map(a => ` 🔥 ${a.title} (${a.source}) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`).join('');
         }
 
-        function filterCategory(cat) {
+        // क्याटेगोरी फिल्टर फङ्सन (बग फिक्स्ड)
+        function filterCategory(cat, btnElement) {
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 btn.classList.remove('bg-red-50', 'dark:bg-gray-700', 'text-red-600', 'dark:text-white');
                 btn.classList.add('text-gray-600', 'dark:text-gray-300');
             });
-            event.target.classList.add('bg-red-50', 'dark:bg-gray-700', 'text-red-600', 'dark:text-white');
+            
+            if (btnElement) {
+                btnElement.classList.add('bg-red-50', 'dark:bg-gray-700', 'text-red-600', 'dark:text-white');
+            }
 
             if(cat === 'all') {
                 renderNews(loadedNews);
@@ -174,6 +219,46 @@
             const query = document.getElementById('search-input').value.toLowerCase();
             const filtered = loadedNews.filter(item => item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query));
             renderNews(filtered);
+        }
+
+        // पपअपमा सोसल मिडियाको लागि छोटो सारांश बनाउने फङ्सन
+        function openNewsModal(id) {
+            const article = loadedNews.find(item => item.id === id);
+            if (!article) return;
+
+            document.getElementById('modal-source').innerHTML = `<i class="fa-solid fa-newspaper mr-1"></i> ${article.source} | ${article.category}`;
+            document.getElementById('modal-title').innerText = article.title;
+            document.getElementById('modal-desc').innerText = article.desc;
+            document.getElementById('modal-link').href = article.link;
+
+            // फेसबुक वा इन्स्टाग्राममा पोस्ट गर्न मिल्ने गरी आकर्षक ढाँचा र ह्यासट्यागहरू तयार
+            const hashCategory = article.category.replace(/\s+/g, '');
+            const socialSummary = `🚨 ताजा समाचार 🚨\n\n📌 शीर्षक: ${article.title}\n\n📝 मुख्य विवरण: ${article.desc.substring(0, 150)}...\n\n👉 थप जानकारीका लागि 'द्र न्यूज' पोर्टल फलो गर्नुहोला।\n\n#DraNews #${hashCategory} #NepalNews #Trending`;
+            document.getElementById('modal-summary').value = socialSummary;
+
+            // बटन रिसेट
+            document.getElementById('copy-text').innerText = "कपी गर्नुहोस्";
+            document.getElementById('copy-icon').className = "fa-regular fa-copy";
+
+            document.getElementById('news-modal').style.display = 'flex';
+        }
+
+        function closeNewsModal() {
+            document.getElementById('news-modal').style.display = 'none';
+        }
+
+        // क्लिपबोर्डमा कपी गर्ने फङ्सन
+        function copyToClipboard() {
+            const summaryTextArea = document.getElementById('modal-summary');
+            summaryTextArea.select();
+            summaryTextArea.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(summaryTextArea.value).then(() => {
+                document.getElementById('copy-text').innerText = "कपी भयो !";
+                document.getElementById('copy-icon').className = "fa-solid fa-check text-green-500";
+            }).catch(err => {
+                console.error('कपी गर्न सकिएन: ', err);
+            });
         }
 
         function updateLiveClock() {
