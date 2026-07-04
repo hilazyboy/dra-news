@@ -1,0 +1,219 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>यहाँ सच्याइएको शुद्ध **"द्र न्यूज"** नाम र PWA म्यानिफेस्टो समेत एकै ठाउँमा मिलाइएको पूर्ण **सिंगल (Single) index.html फाइल** छ।
+यसलाई सीधै कपी गरेर आफ्नो GitHub Repository मा राख्न सक्नुहुन्छ। यसमा म्यानिफेस्टो डेटालाई data:application/manifest+json मार्फत भित्रै समावेश गरिएको छ, जसले गर्दा छुट्टै फाइल बनाइराख्नु पर्दैन।
+```html
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>द्र न्यूज - आधुनिक नेपाली समाचार पोर्टल</title>
+    
+    <link rel="manifest" href='data:application/manifest+json,{"name":"द्र न्यूज","short_name":"द्र न्यूज","start_url":"./index.html","display":"standalone","background_color":"#111827","theme_color":"#dc2626","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/1043/1043514.png","sizes":"512x512","type":"image/png"}]}'>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700&display=swap');
+        body { font-family: 'Mukta', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <div class="bg-red-600 text-white text-sm py-2 px-4 flex justify-between items-center shadow-md">
+        <div class="flex items-center gap-3">
+            <span id="live-date"><i class="fa-regular fa-calendar-days mr-1"></i> लोड हुँदैछ...</span>
+            <span class="hidden md:inline">|</span>
+            <iframe src="https://nepalicalendar.rat32.com/addons/nepali-calendar-aja-ko-din.php" frameborder="0" scrolling="no" class="hidden md:block w-[140px] h-[22px] invert dark:invert-0 brightness-200"></iframe>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleDarkMode()" class="cursor-pointer hover:opacity-80 transition" aria-label="Toggle Theme">
+                <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <header class="bg-white dark:bg-gray-800 shadow py-6 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <h1 class="text-4xl font-extrabold text-red-600 dark:text-red-500 tracking-wide">द्र न्यूज</h1>
+            
+            <div class="relative w-full md:w-96">
+                <input type="text" id="search-input" onkeyup="searchNews()" placeholder="समाचार खोज्नुहोस्..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-gray-900 text-white text-sm py-2 flex items-center border-y border-red-600 overflow-hidden">
+        <span class="bg-red-600 font-bold px-4 py-1 animate-pulse shrink-0 z-10 text-xs tracking-wider uppercase">ब्रेकिङ</span>
+        <div class="w-full overflow-hidden relative whitespace-nowrap">
+            <div id="ticker-content" class="inline-block animate-[marquee_30s_linear_infinite] hover:[animation-play-state:paused] cursor-pointer">
+                ताजा समाचार लोड हुँदैछ...
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 overflow-x-auto shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-start md:justify-center p-2 whitespace-nowrap gap-1">
+            <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-red-600 bg-red-50 dark:bg-gray-700 dark:text-white">गृहपृष्ठ</button>
+            <button onclick="filterCategory('नेपाल')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🇳🇵 नेपाल</button>
+            <button onclick="filterCategory('विश्व')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌍 विश्व</button>
+            <button onclick="filterCategory('राजनीति')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💼 राजनीति</button>
+            <button onclick="filterCategory('अर्थतन्त्र')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">💹 अर्थतन्त्र</button>
+            <button onclick="filterCategory('खेलकुद')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">⚽ खेलकुद</button>
+            <button onclick="filterCategory('मनोरञ्जन')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🎬 मनोरञ्जन</button>
+            <button onclick="filterCategory('प्रविधि')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">📱 प्रविधि</button>
+            <button onclick="filterCategory('मौसम')" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">🌦 मौसम</button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <section class="lg:col-span-3">
+            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="animate-pulse bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm h-64"></div>
+                <div class="animate-pulse bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm h-64"></div>
+            </div>
+        </section>
+
+        <aside class="space-y-6">
+            <div class="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900 p-4 rounded-xl">
+                <h3 class="font-bold text-yellow-800 dark:text-yellow-400 mb-2"><i class="fa-solid fa-bullhorn mr-1"></i> आधिकारिक सूचना</h3>
+                <p class="text-xs text-yellow-700 dark:text-yellow-500 leading-relaxed">द्र न्यूज पोर्टलमा यहाँलाई स्वागत छ! हामी विश्वसनीय नेपाली सञ्चारमाध्यमहरूबाट स्वचालित रूपमा ताजा हेडलाइन्स अपडेट गर्दछौँ।</p>
+            </div>
+
+            <div class="bg-gray-200 dark:bg-gray-800 h-64 rounded-xl flex flex-col justify-center items-center text-gray-400 border-2 border-dashed border-gray-300 dark:border-gray-700">
+                <span class="text-xs font-semibold tracking-widest uppercase">विज्ञापन स्थान</span>
+                <span class="text-[10px]">यहाँ विज्ञापन राख्न सक्नुहुन्छ</span>
+            </div>
+        </aside>
+    </main>
+
+    <div id="morning-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden justify-center items-center z-50 p-4">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl max-w-sm w-full text-center shadow-2xl border border-gray-100 dark:border-gray-700 transform scale-95 transition-transform duration-300">
+            <div class="text-red-500 text-5xl mb-3"><i class="fa-solid fa-mug-hot"></i></div>
+            <h3 class="text-xl font-bold mb-2">शुभ प्रभात! 🌅</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">बिहानको ७ बजिसकेको छ। आजका प्रमुख ताजा मुख्य समाचारहरू तयार छन्।</p>
+            <button onclick="closePopup()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-xl cursor-pointer transition">समाचार पढ्नुहोस्</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample News Data with Corrected Brand Name
+        const newsFeeds = [
+            { source: "Online Khabar", category: "नेपाल", title: "देशभर मनसुन सक्रिय, चार प्रदेशमा भारी वर्षाको सम्भावना", link: "#", desc: "जल तथा मौसम विज्ञान विभागका अनुसार आज देशभर आंशिकदेखि सामान्य बदली रहनेछ..." },
+            { source: "Ekantipur", category: "राजनीति", title: "संसदको हिउँदे अधिवेशन बोलाउने तयारी तीव्र, दलहरूबीच छलफल", link: "#", desc: "राजनीतिक दलहरू आगामी रणनीति मिलाउन आन्तरिक गृहकार्य र बैठकहरूमा व्यस्त..." },
+            { source: "Ratopati", category: "अर्थतन्त्र", title: "सेयर बजारमा उत्साह: नेप्से परिसूचकमा दोहोरो अङ्कको वृद्धि", link: "#", desc: "नेपाल स्टक एक्सचेन्जमा आज कारोबार सुरु भएदेखि नै राम्रो सुधार देखिएको छ..." },
+            { source: "Setopati", category: "खेलकुद", title: "नेपाली राष्ट्रिय क्रिकेट टोलीको अन्तराष्ट्रिय खेल तालिका सार्वजनिक", link: "#", desc: "क्यानले आगामी महिना आयोजना हुने त्रिकोणात्मक सिरिजको तालिका घोषणा गरेको छ..." },
+            { source: "Nagarik News", category: "विश्व", title: "अन्तर्राष्ट्रिय बजारमा इन्धनको मूल्यमा गिरावट", link: "#", desc: "विश्व बजारमा माग घटेसँगै कच्चा तेलको मूल्यमा मन्दी आएको अन्तर्राष्ट्रिय सञ्चारमाध्यमले जनाएका छन्..." },
+            { source: "TechPana", category: "प्रविधि", title: "नेपालमै पहिलो पटक आर्टिफिसियल इन्टेलिजेन्स कन्फरेन्स सम्पन्न", link: "#", desc: "प्रविधि क्षेत्रका विज्ञहरू सम्मिलित राष्ट्रिय सम्मेलनले नयाँ एआई नीति ल्याउन सुझाव दिएको छ..." }
+        ];
+
+        let loadedNews = [...newsFeeds];
+
+        // Marquee Animation Injected
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`;
+        document.head.appendChild(style);
+
+        window.onload = function() {
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            renderNews(loadedNews);
+            setupTicker(loadedNews);
+            checkMorningPopup();
+            setInterval(checkMorningPopup, 60000);
+            requestPushPermission();
+        };
+
+        function renderNews(articles) {
+            const container = document.getElementById('news-container');
+            if(articles.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">समाचार फेला परेन।</div>`;
+                return;
+            }
+            container.innerHTML = articles.map(item => `
+                <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col justify-between p-5 hover:shadow-md transition">
+                    <div>
+                        <div class="flex justify-between items-center text-xs font-semibold text-red-500 mb-2">
+                            <span><i class="fa-solid fa-newspaper mr-1"></i> ${item.source}</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">${item.category}</span>
+                        </div>
+                        <h2 class="text-lg font-bold mb-2 hover:text-red-600 cursor-pointer line-clamp-2">${item.title}</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">${item.desc}</p>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-100 dark:border-gray-700 pt-3">
+                        <a href="${item.link}" target="_blank" class="text-xs font-bold text-blue-600 hover:underline">पूरा पढ्नुहोस् &rarr;</a>
+                        <div class="flex gap-2 text-gray-400 text-sm">
+                            <button onclick="share('fb', '${item.title}')" class="hover:text-blue-600 cursor-pointer"><i class="fa-brands fa-facebook"></i></button>
+                            <button onclick="share('tw', '${item.title}')" class="hover:text-sky-400 cursor-pointer"><i class="fa-brands fa-twitter"></i></button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function setupTicker(articles) {
+            const ticker = document.getElementById('ticker-content');
+            ticker.innerHTML = articles.map(a => ` 🔥 ${a.title} (${a.source}) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`).join('');
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-red-50', 'dark:bg-gray-700', 'text-red-600', 'dark:text-white');
+                btn.classList.add('text-gray-600', 'dark:text-gray-300');
+            });
+            event.target.classList.add('bg-red-50', 'dark:bg-gray-700', 'text-red-600', 'dark:text-white');
+
+            if(cat === 'all') {
+                renderNews(loadedNews);
+            } else {
+                const filtered = loadedNews.filter(item => item.category === cat);
+                renderNews(filtered);
+            }
+        }
+
+        function searchNews() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = loadedNews.filter(item => item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query));
+            renderNews(filtered);
+        }
+
+        function updateLiveClock() {
+            const now = new Date();
+            document.getElementById('live-date').innerHTML = `<i class="fa-regular fa-clock mr-1"></i> ${now.toLocaleTimeString('ne-NP')} | ${now.toLocaleDateString('ne-NP')}`;
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            document.getElementById('theme-icon').className = isDark ? 'fa-solid fa-sun text-lg' : 'fa-solid fa-moon text-lg';
+        }
+
+        function checkMorningPopup() {
+            const now = new Date();
+            if(now.getHours() === 7 && now.getMinutes() === 0) {
+                document.getElementById('morning-popup').style.display = 'flex';
+            }
+        }
+        
+        function closePopup() {
+            document.getElementById('morning-popup').style.display = 'none';
+        }
+
+        function share(platform, title) {
+            const url = encodeURIComponent(window.location.href);
+            const txt = encodeURIComponent(title);
+            if(platform === 'fb') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`);
+            if(platform === 'tw') window.open(`https://twitter.com/intent/tweet?text=${txt}&url=${url}`);
+        }
+
+        function requestPushPermission() {
+            if ("Notification" in window) {
+                Notification.requestPermission();
+            }
+        }
+    </script>
+</body>
+</html>
+
+```
